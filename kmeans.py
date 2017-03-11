@@ -27,12 +27,12 @@ class KMeansClusterer:
         """Learns from the given data.
 
         Args:
-            data: The dataset with m rows each with n features
-            k: The number of clusters
-            min_gain: Minimum gain to keep iterating
-            max_iter: Maximum number of iterations to perform
+            data:      The dataset with m rows each with n features
+            k:         The number of clusters
+            min_gain:  Minimum gain to keep iterating
+            max_iter:  Maximum number of iterations to perform
             max_epoch: Number of random starts, to find global optimum
-            verbose: Print diagnostic message if True
+            verbose:   Print diagnostic message if True
 
         Returns:
             self
@@ -102,10 +102,10 @@ class BisectingKMeansClusterer:
         """Learns from given data and options.
 
         Args:
-            data: The dataset with m rows each with n features
-            max_k: Maximum number of clusters
+            data:     The dataset with m rows each with n features
+            max_k:    Maximum number of clusters
             min_gain: Minimum gain to keep iterating
-            verbose: Print diagnostic message if True
+            verbose:  Print diagnostic message if True
 
         Returns:
             self
