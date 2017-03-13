@@ -13,7 +13,7 @@ def main():
         description='Run the k-means clustering algorithm.',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument(
-        '-f', '--datafile', type=str, default='D.txt',
+        '-f', '--datafile', type=str, default='data.txt',
         help='The data file containing m x n matrix')
     parser.add_argument(
         '-k', '--k', type=int, default=10,
