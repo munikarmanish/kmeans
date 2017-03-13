@@ -2,7 +2,7 @@ k-means Clustering
 ==================
 
 This is a simple pythonic implementation of the two centroid-based
-partitioned clustering algorithms---k-means and bisecting k-means.
+partitioned clustering algorithms: *k-means* and *bisecting k-means*.
 
 Requirements
 ------------
@@ -22,11 +22,12 @@ You can install these with the following command:
 Usage
 -----
 
-First of all, you need to have a data file like. A sample data file ``data.txt``
+First of all, you need to have a data file. A sample data file ``data.txt``
 is included in this repo. It contains 100 two-dimensional Cartesian points with
-10 Gaussian clusters.
+10 Gaussian clusters. The data can be visualized at ``data.pdf``.
 
-Now you can run and test the two clustering algorithms.
+Now you can run and test the two clustering algorithms. The sample result is
+shown in ``result.pdf``.
 
 Standard k-means
 ^^^^^^^^^^^^^^^^
