@@ -39,13 +39,13 @@ def main():
     c = KMeansClusterer(
         data, k=args.k, max_iter=args.max_iter, max_epoch=args.epoch,
         verbose=args.verbose)
-    # c = BisectingKMeansClusterer(
-    #     data, max_k=args.max_k, min_gain=args.min_gain, verbose=args.verbose)
 
-    # plot result
+    # the result
     plt.figure(1)
+    # plot the clusters in different colors
     for i in range(c.k):
         plt.plot(c.C[i][:, 0], c.C[i][:, 1], 'x')
+    # plot the centroids in black squares
     plt.plot(c.u[:, 0], c.u[:, 1], 'ks')
     plt.show()
 

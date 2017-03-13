@@ -20,10 +20,10 @@ class KMeansClusterer:
                  max_epoch=10, verbose=True):
         """Learns from data if given."""
         if data is not None:
-            self.cluster(data, k, min_gain, max_iter, max_epoch, verbose)
+            self.fit(data, k, min_gain, max_iter, max_epoch, verbose)
 
-    def cluster(self, data, k=2, min_gain=0.01, max_iter=100, max_epoch=10,
-                verbose=True):
+    def fit(self, data, k=2, min_gain=0.01, max_iter=100, max_epoch=10,
+            verbose=True):
         """Learns from the given data.
 
         Args:
@@ -64,7 +64,7 @@ class KMeansClusterer:
 
                 # Centroid update
                 for j in range(k):
-                    u[j] = np.mean(C[j], 0)
+                    u[j] = centroid(C[j])
 
                 # Loop termination condition
                 if t >= max_iter:
@@ -96,9 +96,9 @@ class BisectingKMeansClusterer:
     def __init__(self, data, max_k=10, min_gain=0.1, verbose=True):
         """Learns from data if given."""
         if data is not None:
-            self.cluster(data, max_k, min_gain, verbose)
+            self.fit(data, max_k, min_gain, verbose)
 
-    def cluster(self, data, max_k=10, min_gain=0.1, verbose=True):
+    def fit(self, data, max_k=10, min_gain=0.1, verbose=True):
         """Learns from given data and options.
 
         Args:
@@ -127,7 +127,7 @@ class BisectingKMeansClusterer:
             old_sse = np.sum(sse_list)
             data = self.C.pop(np.argmax(sse_list))
             # bisect it
-            self.kmeans.cluster(data, k=2, verbose=False)
+            self.kmeans.fit(data, k=2, verbose=False)
             # add bisected clusters to our list
             self.C.append(self.kmeans.C[0])
             self.C.append(self.kmeans.C[1])
@@ -139,7 +139,8 @@ class BisectingKMeansClusterer:
             new_sse = np.sum(sse_list)
             gain = old_sse - new_sse
             if verbose:
-                print("k={:2d}, SSE={:10.4f}, GAIN={:10.4f}".format(self.k, new_sse, gain))
+                print("k={:2d}, SSE={:10.4f}, GAIN={:10.4f}".format(
+                    self.k, new_sse, gain))
             if gain < min_gain or self.k >= max_k:
                 break
 
