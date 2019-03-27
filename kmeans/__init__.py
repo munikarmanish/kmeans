@@ -136,7 +136,6 @@ def bisecting_kmeans(points, k=2, epochs=10, max_iter=100, verbose=False):
     points = convert_to_2d_array(points)
     clusters = [points]
     while len(clusters) < k:
-        n = len(clusters)
         max_sse_i = np.argmax([SSE(c) for c in clusters])
         cluster = clusters.pop(max_sse_i)
         two_clusters = kmeans(

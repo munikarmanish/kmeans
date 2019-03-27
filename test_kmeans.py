@@ -1,53 +1,38 @@
-#!/bin/env python3
-import argparse
+#!/usr/bin/env python3
 
-import matplotlib.pyplot as plt
+import click
 import numpy as np
 
-from kmeans import BisectingKMeansClusterer, KMeansClusterer
+from kmeans import bisecting_kmeans, kmeans, visualize_clusters
+
+CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 
-def main():
-    # Parse the arguments
-    parser = argparse.ArgumentParser(
-        description='Run the k-means clustering algorithm.',
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument(
-        '-f', '--datafile', type=str, default='data.txt',
-        help='The data file containing m x n matrix')
-    parser.add_argument(
-        '-k', '--k', type=int, default=10,
-        help='Number of clusters')
-    parser.add_argument(
-        '-g', '--min-gain', type=float, default=0.1,
-        help='Minimum gain to keep iterating')
-    parser.add_argument(
-        '-t', '--max-iter', type=int, default=100,
-        help='Maximum number of iterations per epoch')
-    parser.add_argument(
-        '-e', '--epoch', type=int, default=10,
-        help='Number of random starts, for global optimum')
-    parser.add_argument(
-        '-v', '--verbose', default=0, action='store_true',
-        help='Show verbose info')
-    args = parser.parse_args()
-
-    # prepare data
-    data = np.loadtxt(args.datafile)
-
-    # initialize clusterer
-    c = KMeansClusterer(
-        data, k=args.k, max_iter=args.max_iter, max_epoch=args.epoch,
-        verbose=args.verbose)
-
-    # the result
-    plt.figure(1)
-    # plot the clusters in different colors
-    for i in range(c.k):
-        plt.plot(c.C[i][:, 0], c.C[i][:, 1], 'x')
-    # plot the centroids in black squares
-    plt.plot(c.u[:, 0], c.u[:, 1], 'ks')
-    plt.show()
+@click.command(context_settings=CONTEXT_SETTINGS)
+@click.argument('datafile')
+@click.option(
+    '-k', '--k', default=2, show_default=True,
+    help='Number of output clusters')
+@click.option(
+    '-e', '--epochs', default=10, show_default=True,
+    help='Number of random initialization (to find global optimum)')
+@click.option(
+    '-i', '--max-iter', default=100, show_default=True,
+    help='Maximum iterations')
+@click.option(
+    '-b', '--bisecting', default=False, is_flag=True,
+    help='Use bisecting k-means algorithm')
+@click.option(
+    '-v', '--verbose', default=False, is_flag=True, help='Verbose output')
+def main(datafile, k, verbose, max_iter, epochs, bisecting):
+    """CLI for testing the k-means clustering algorithm."""
+    points = np.loadtxt(datafile)
+    algorithm = kmeans
+    if bisecting:
+        algorithm = bisecting_kmeans
+    clusters = algorithm(
+        points=points, k=k, verbose=verbose, max_iter=max_iter, epochs=epochs)
+    visualize_clusters(clusters)
 
 
 if __name__ == '__main__':

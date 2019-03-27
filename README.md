@@ -8,7 +8,7 @@ partitioned clustering algorithms: **k-means** and **bisecting k-means**.
 To run this program, you need to have python 3.x installed with
 following packages:
 
-- numpy (for computation)
+- numpy (for matrix calculations)
 - matplotlib (for visualization)
 - click (for command line interface)
 
@@ -18,37 +18,17 @@ You can install these with the following command:
 
 ## Usage
 
-First of all, you need to have a data file. A sample data file `data.txt`
-is included in this repo. It contains 100 two-dimensional Cartesian points with
-10 Gaussian clusters. The data can be visualized at `data.pdf`.
-
-Now you can run and test the two clustering algorithms. The sample result is
-shown in `result.pdf`.
-
-### Standard k-means
+First of all, you need to have a data file. A sample data file `demo/data.txt`
+is included in this repo.
 
 For running the program on the sample dataset, run:
 
     python3 test_kmeans.py --verbose
 
-To use your own datasets and change various clustering paramters, see help
-text.
+To test bisecting k-means, use your own datasets, and change various
+clustering paramters, see help text.
 
     python3 test_kmeans.py --help
-
-### Bisecting k-means
-
-Bisecting k-means internally uses the standard k-means with k=2.
-
-For running the program on the sample dataset, run:
-
-    python3 test_bisecting.py --verbose
-
-To use your own datasets and change various clustering paramters, see help
-text.
-
-    python3 test_bisecting.py --help
-
 
 ## Author
 
